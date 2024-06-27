@@ -1,0 +1,4 @@
+apiVersion: v2
+description: PhuongND Chart template
+name: common-template
+version: 0.1.0

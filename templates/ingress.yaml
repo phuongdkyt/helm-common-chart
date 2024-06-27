@@ -1,0 +1,23 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "common.fullname" . -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  namespace: {{ template "common.namespace" . }}
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+  {{- with .Values.ingress.rules }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  tls:
+  {{- with .Values.ingress.tls }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}
